@@ -39,10 +39,8 @@
               }
               else {
                   file = input.files[0];
-      
-                  if (file.lastModifiedDate != lastMod) {
-                    renderMdFile(file)
-                  }
+                  renderMdFile(file)
+                  lastMod = file.lastModifiedDate;
                   setInterval(tick, 250);
               }
           }
@@ -62,7 +60,7 @@
               if (file && lastMod && file.lastModifiedDate.getTime() !== lastMod.getTime()) {
                   renderMdFile(input.files[0]);
                   lastMod = file.lastModifiedDate;
-                  display("File changed: " + lastMod);
+                  console.log("File changed: " + lastMod);
               }
           }
       
