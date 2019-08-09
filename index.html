@@ -5,16 +5,41 @@
     <title>Watch for a file change</title>
     <style type='text/css'>
       body {
-      font-family: sans-serif;
+        font-family: Verdana, Georgia;
+        background-color: #F5F5F5B;
+      }
+      #inputDiv {
+        text-align: center;
+      }
+      #mdDiv {
+        border: 2px solid #767C86;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #FAFAFA;
+        margin: 0 auto;
+        width: 80%;
+      }
+      pre {
+        border-style: 1px solid;
+        border-radius: 5px;
+        padding: 3px;
+        background-color: #EEEEEE;
+        overflow-x: scroll;
       }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
   </head>
   <body>
-    <label for="filename">Upload Markdown File: </label>
-    <input type='file' id='filename'>
-    <hr />
+    <div id="inputDiv">
+      <label for="filename">Upload Markdown File: </label>
+      <input type='file' id='filename'>
+    </div>
+    <br />
     <div id="mdDiv"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
+    <script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <script type='text/javascript'>
       (function() {
           var input;
@@ -50,6 +75,11 @@
             var reader = new FileReader();
             reader.readAsText(file, "UTF-8");
             reader.onload = function (evt) {
+              marked.setOptions({
+                highlight: function(code) {
+                  return hljs.highlightAuto(code).value;
+                }
+              });
               div.innerHTML = marked( evt.target.result);
             }
           }
