@@ -35,7 +35,7 @@
       <input type='file' id='filename'>
     </div>
     <br />
-    <div id="mdDiv"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
     <script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -63,6 +63,12 @@
                   display("Please select a file before clicking 'Show Size'");
               }
               else {
+                  var divElement = document.getElementById("mdDiv");
+                  if (divElement === null) {
+                    divElement = document.createElement("div");
+                    document.body.appendChild(divElement);
+                    divElement.id = "mdDiv";
+                  }
                   file = input.files[0];
                   renderMdFile(file)
                   lastMod = file.lastModifiedDate;
